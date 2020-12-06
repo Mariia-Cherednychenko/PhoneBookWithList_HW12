@@ -1,10 +1,8 @@
 package ua.ithlillel.dnipro.Cherednychenko;
 
-import java.util.Scanner;
-
 public class InMemoryContactsService implements ContactsService {
 
-   ContactsList contactsList;
+    ContactsList contactsList;
 
     public InMemoryContactsService(ContactsList contactsList) {
         this.contactsList = contactsList;
@@ -19,6 +17,7 @@ public class InMemoryContactsService implements ContactsService {
     public void remove(int index) {
         contactsList.remove(index);
     }
+
 
     @Override
     public void add(Contact c) {

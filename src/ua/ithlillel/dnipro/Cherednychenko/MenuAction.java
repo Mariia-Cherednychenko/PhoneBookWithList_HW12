@@ -9,7 +9,7 @@ public interface MenuAction {
 
     public default boolean closeAfter(){
             boolean close = false;
-            System.out.println("If you want to close the program - please enter '4'");
+            System.out.println("If you want to close the program - please enter '4'. If you want to continue - please enter  any other digit");
             if (new Scanner(System.in).nextInt()==4){
                 close=true;
                 System.out.println("The program is closing");

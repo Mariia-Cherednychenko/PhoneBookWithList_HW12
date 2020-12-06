@@ -18,13 +18,13 @@ public class Main {
 
         ContactsList contactsList = new ContactsList();
 
-        //ContactsService contactsService = new InMemoryContactsService(contactsList);
+        ContactsService contactsService = new InMemoryContactsService(contactsList);
 
-        ContactsService contactsService = new FileContactsService(contactsList,filePhoneBook);
+       // ContactsService contactsService = new FileContactsService(contactsList,filePhoneBook);
 
         MenuAction[] menuAction = {new AddContactMenuAction(contactsService, scanner),
                 new ReadAllContactMenuAction(contactsService, scanner),
-                new RemoveContactMenuAction(contactsService, scanner),
+                new RemoveContactMenuAction(contactsService, scanner, contactsList),
                 new CloseContactMenuAction(scanner)};
 
 

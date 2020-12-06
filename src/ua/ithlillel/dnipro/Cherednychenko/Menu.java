@@ -7,7 +7,6 @@ public class Menu {
 
     MenuAction[] action;
     Scanner scanner;
-    boolean close;
 
 
     public Menu(MenuAction[] action, Scanner scanner) {
@@ -21,6 +20,7 @@ public class Menu {
     }
 
     public void run() throws IOException {
+        boolean close = false;
 
         while (!close) {
             for (int i = 0; i < action.length; i++) {
@@ -30,24 +30,25 @@ public class Menu {
 
             System.out.println("Enter your choice: ");
 
-            int choice = scanner.nextInt() - 1;
-            scanner.nextLine();
+            try {
+                int choice = scanner.nextInt() - 1;
+                scanner.nextLine();
 
-            addAction(action[choice]);
-            close = action[choice].closeAfter();
+                if ((choice >= 0) && (choice <= action.length)) {
+                    addAction(action[choice]);
+                    close = action[choice].closeAfter();
+                } else {
+                    System.out.println("Incorrect input. You could try again");
+                }
 
+            } catch (Exception E) {
+                System.out.println("Incorrect input. You could try again");
+                scanner.nextLine();
+            }
 
         }
+
+
     }
-
-
-    private void checkChoiceСorrectness(int choice) throws IOException {
-        if (choice < 0 && choice > 3) {
-            System.out.println("Incorrect input");
-            run();
-        }
-    }
-
-
-
 }
+
