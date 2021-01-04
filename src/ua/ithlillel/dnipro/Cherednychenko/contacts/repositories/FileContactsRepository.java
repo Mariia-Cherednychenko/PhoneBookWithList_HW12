@@ -5,13 +5,14 @@ import ua.ithlillel.dnipro.Cherednychenko.contacts.ContactsRepository;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 
 public class FileContactsRepository implements ContactsRepository {
 
-    private List<Contact> contactsList = new ArrayList<>();
+    private List<Contact> contactsList = new LinkedList<>();
     File file;
 
     public FileContactsRepository(List<Contact> contactsList, File file) {
@@ -85,8 +86,8 @@ public class FileContactsRepository implements ContactsRepository {
 
     }
 
-    @Override
-    public List<Contact> checkPartPhoneNumber(String partPhoneNumber) throws IOException {
+    /*@Override
+    public String checkPartPhoneNumber(String partPhoneNumber) throws IOException {
         List<Contact> contactsList = getAll();
         List<Contact> contactsListPartPhone = new ArrayList<>();
         for (int i = 0; i < contactsList.size(); i++) {
@@ -99,8 +100,17 @@ public class FileContactsRepository implements ContactsRepository {
     }
 
     @Override
-    public List<Contact> checkBeginningName(String beginningName) throws IOException {
-        List<Contact> contactsList = getAll();
+    public String checkBeginningName(String beginningName) throws IOException {
+
+        String contactsFound = contactsList
+                .stream()
+                .map(contact -> contact.getName().toLowerCase())
+                .filter(contact->contact.startsWith(beginningName))
+                .collect(Collectors.joining(" \n"));
+        return contactsFound;
+
+
+         List<Contact> contactsList = getAll();
         List<Contact> contactsListBeginningName = new ArrayList<>();
         for (int i = 0; i < contactsList.size(); i++) {
             if (contactsList.get(i).getName().toLowerCase().startsWith(beginningName.toLowerCase())){
@@ -109,6 +119,5 @@ public class FileContactsRepository implements ContactsRepository {
         }
         return contactsListBeginningName;
     }
-
-}
+*/}
 

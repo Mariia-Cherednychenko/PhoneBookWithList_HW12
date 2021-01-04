@@ -6,14 +6,30 @@ import java.util.EmptyStackException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public interface ContactsRepository {
 
     List<Contact> getAll() throws IOException;
     void remove (int index) throws IOException;
     boolean add (Contact contact) throws IOException;
-    List<Contact> checkPartPhoneNumber(String partPhoneNumber) throws IOException;
-    List<Contact> checkBeginningName(String beginningName) throws IOException;
+
+    default  List<Contact> checkPartPhoneNumber(String partPhoneNumber) throws IOException{
+        List<Contact> contactsFound = getAll()
+                .stream()
+                .filter(contact->contact.getPhone().replaceAll("\\s","").contains(partPhoneNumber))
+                .collect(Collectors.toList());
+        return contactsFound;
+    }
+
+    default   List<Contact> checkBeginningName(String beginningName) throws IOException{
+        List<Contact> contactsFound = getAll()
+                .stream()
+                .filter(contact->contact.getName().toLowerCase().startsWith(beginningName))
+                .collect(Collectors.toList());
+        return contactsFound;
+    }
+
 
     default boolean checkPhoneValidation(String phone) {
 

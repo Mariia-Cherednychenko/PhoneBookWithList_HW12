@@ -4,16 +4,15 @@ import ua.ithlillel.dnipro.Cherednychenko.contacts.Contact;
 import ua.ithlillel.dnipro.Cherednychenko.contacts.ContactsRepository;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 
 public class InMemoryContactsRepository implements ContactsRepository {
 
-    private List<Contact> contactsList = new ArrayList<>();
+    private List<Contact> contactsList = new LinkedList<>();
 
     @Override
     public List<Contact> getAll() {
@@ -37,9 +36,17 @@ public class InMemoryContactsRepository implements ContactsRepository {
         }
     }
 
-    @Override
-    public List<Contact> checkPartPhoneNumber(String partPhoneNumber) {
-        List<Contact> contactsListPartPhone = new ArrayList<>();
+  /*  @Override
+    public String checkPartPhoneNumber(String partPhoneNumber) {
+        List<Contact> contactsListPartPhone = new LinkedList<>();
+
+        String contactsFound = contactsList
+                .stream()
+                .map(contact -> contact.getPhone().replaceAll("\\s",""))
+                .filter(contact->contact.contains(partPhoneNumber))
+                .collect(Collectors.joining(" \n"));
+        return contactsFound;
+
         for (int i = 0; i < contactsList.size(); i++) {
             if (contactsList.get(i).getPhone().replaceAll("\\s", "").contains(partPhoneNumber)) {
                 contactsListPartPhone.add(contactsList.get(i));
@@ -50,7 +57,17 @@ public class InMemoryContactsRepository implements ContactsRepository {
     }
 
     @Override
-    public List<Contact> checkBeginningName(String beginningName) throws IOException {
+    public String checkBeginningName(String beginningName) throws IOException {
+
+        List<Contact> contactsListPartPhone = new LinkedList<>();
+
+        String contactsFound = contactsListPartPhone
+                .stream()
+                .map(contact -> contact.getName().toLowerCase())
+                .filter(contact->contact.startsWith(beginningName))
+                .collect(Collectors.joining(" \n"));
+        return contactsFound;
+
         List<Contact> contactsListBeginningName = new ArrayList<>();
         for (int i = 0; i < contactsList.size(); i++) {
             if (contactsList.get(i).getName().toLowerCase().startsWith(beginningName.toLowerCase())){
@@ -59,6 +76,5 @@ public class InMemoryContactsRepository implements ContactsRepository {
         }
         return contactsListBeginningName;
     }
-
-
+*/
 }
